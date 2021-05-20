@@ -1,64 +1,51 @@
+
+# spacebotlist.js
+
 # SpaceBotList api wrapper for node.js
 
-[Bot List Link](https://www.spacebotlist.xyz/)
 
+**NPM:** [npmjs.com/package/vcodes.js](https://www.npmjs.com/package/spacebotlist.js)<br>
 
-*Installation*
-
-`npm install spacebotlist.js --save`
-
-<hr>
-
-**Posting Servers Count & Shards Count** `POST`
-
-`You can post once every 5 minutes (ratelimits)`
-
-<hr>
-
-**Response**
-
-[ Error ] 429 : `[SBL] (429): Your are being ratelimited, 1 request per 5 mins.`
-
-[ Error ] 404 : `[SBL] (404): Can't find server_count.`
-
-[ Error ] 404 : `[SBL] (404): Authorization header not found.`
-
-[ Error ] 400 : `[SBL] (400): server_count not integer.`
-
-[ Error ] 404 : `[SBL] (404): Bot not found!`
-
-[ Error ] 400 : `[SBL] (400): Incorrect authorization token.`
-
-[ Error ] 404 : `[SBL] (404): Go generate auth token for your bot!`
-
-[ Error ] 400 : `[SBL] (400): shard_count not integer.`
-
-
-[ Success ] 200 : **[200]: Your Stats Has Been Posted.**
+´
+## Installation
+*If you have trouble with the installation, please feel free to visit our [discord](https://spacebotlist.xyz/dc) address.*
+- `npm i spacebotlist.js`
 
 ```js
-const Discord = require("discord.js")
-const client = new Discord.Client()
-const prefix = "!";
-const SBL = require("spacebotlist.js")
-const sbl = new SBL.get(client.user.id,"bot-auth-token")
+const spacebotlist = require("vcodes.js");
+const dbl = new spacebotlist("TOKEN-HERE", client);
 
-client.on("ready", () => {
-console.log(`Logged in as ${client.user.tag}.`)
-setInterval(() => {
-    sbl.post(client.guilds.cache.size)
-    //sbl.post(client.guilds.cache.size, client.shard.count)
-    //to post shard count!
-     }, 10000);
-})
-
-client.on("message", message => {
-    if(message.author.bot) return
-    if(message.content == prefix + "ping"){
-        message.reply(`Pong! it took ${client.ws.ping}`)
-    }
-})
-
-client.login("token")
-
+client.on("ready", async () => {
+  dbl.serverCount();
+  // console.log("Server count posted")
+  
+  let hasVote = await dbl.hasVoted("800344695069999144");
+  if(hasVote === true) {
+    console.log("Voted")
+  } else {
+    console.log("Vote please.")
+  }
+  
+  
+  let search = await dbl.search("800344695069999144")
+  console.log(search)
+  /*
+  {
+    avatar: 'https://cdn.discordapp.com/avatars/800344695069999144/8d4499339467130069897e90d528b5b4.webp',
+    botID: '800344695069999144',
+    username: 'Fyso',
+    discrim: '0507',
+    shortDesc: 'Cool Bot',
+    prefix: '.',
+    votes: 2,
+    ownerID: '715491864739840063',
+    owner: 'SkyAlumny',
+    coowners: [ '' ],
+    tags: [ 'Moderation', 'Fun' ],
+    longDesc: longDesc,
+    certificate: 'Certified'
+  }
+  */
+});
 ```
+
