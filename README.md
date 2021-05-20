@@ -4,9 +4,9 @@
 # SpaceBotList api wrapper for node.js
 
 
-**NPM:** [npmjs.com/package/vcodes.js](https://www.npmjs.com/package/spacebotlist.js)<br>
+**NPM:** [npmjs.com/package/spacebotlist.js](https://www.npmjs.com/package/spacebotlist.js)<br>
 
-´
+
 ## Installation
 *If you have trouble with the installation, please feel free to visit our [discord](https://spacebotlist.xyz/dc) address.*
 - `npm i spacebotlist.js`
