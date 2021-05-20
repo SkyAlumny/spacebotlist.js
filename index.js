@@ -1,25 +1,34 @@
-const fetch = require("node-fetch")
+const fetch = require("node-fetch");
+module.exports = class VOID {
+  constructor(token, client) {
+    this['token'] = token;
+    this['client'] = client;
+    return this;
+  }
 
-class get {
-    constructor(id, auth){
-        if(!auth)throw new Error("Missing authorization token.")
-        if(!id)throw new Error("Missing bot id.")
-        this.id = id
-        this.auth = auth
-    }
-    async post(server_count, shard_count){
-        //At our api all actions logs is excuted from the bot list!
-        //You can't change any logs
-        //OH YEAH WHAT YOU ARE DOING HERE BITCH GET OUT NOW!
-        let body = shard_count ? { 'server_count': server_count, 'shard_count': shard_count } : { 'server_count': server_count, 'shard_count': 0 }
-        await fetch(`https://www.spacebotlist.xyz/api/v1/bot/${this.id}`, {
-            method: 'POST',
-            body:    JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json', 'authorization': this.auth },
-        }).then(async (res) => {console.log(await res.json())})
-    }
-}
-
-module.exports = {
-    get
+  serverCount(message) {
+  fetch(`https://spacebotlist.xyz/api/bots/stats`, {
+        method: 'POST',
+        headers: { 
+          'serverCount': this.client.guilds.cache.size,
+          'Content-Type': 'application/json', 
+          'Authorization': this.token
+        },
+    })
+    .then(console.log(message || "Server count posted."));
+  }
+  
+  async search(id) {
+  return await fetch(`https://spacebotlist.xyz/api/bots/${id}`, {
+        method: 'GET'
+    })
+    .then(res => res.json()).then(json => json);
+  }
+  
+  async hasVoted(id) {
+  return await fetch(`https://spacebotlist.xyz/api/bots/check/${id}`, {method: 'GET',headers: { 
+    'Content-Type': 'application/json', 'Authorization': this.token
+  }
+  }).then(res => res.json()).then(async json => json.voted);
+  }
 }
