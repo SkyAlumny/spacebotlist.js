@@ -1,6 +1,33 @@
 {
   "name": "spacebotlist.js",
   "version": "1.0.3",
+  "description": "A official spacebotlist.xyz api.",
+  "main": "spacebotlist.js",
+  "scripts": {
+    "test": "!vote"
+  },
+  "repository": {
+    "type": "git",
+    "url": "x"
+  },
+  "keywords": [
+    "bot",
+    "list",
+    "discord",
+    "dbl",
+    "vcodes",
+    "api",
+    "bots",
+    "vote",
+    "check",
+    "vote",
+    "control",
+    "force",
+    "vote"
+  ],
+  "author": "SpaceBotList",
+  "license": "MIT",
+  "dependencies": {}
   "description": "Package for www.spacebotlist.xyz",
   "main": "index.js",
   "scripts": {
